@@ -1,0 +1,89 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { typeNamePlural: 'Purchase Orders Items - List Report',
+                  typeName: 'Purchase Order Item',
+                  title.value: 'ItemId' }
+
+annotate entity ZOB_C_PO_ITEM
+    with
+
+{
+  @EndUserText.label: 'Item ID'
+  @UI.facet: [ { id: 'PO_Items',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Purchase Order Items',
+                 position: 10 } ]
+  @UI.identification: [ { position: 10 } ]
+  @UI.lineItem: [ { position: 10 } ]
+  @UI.selectionField: [ { position: 10 } ]
+  ItemId            ;
+
+  @EndUserText.label: 'Purchase Order Id'
+  @UI.identification: [ { position: 20 } ]
+  @UI.lineItem: [ { position: 20 } ]
+  @UI.selectionField: [ { position: 20 } ]
+  PurchaseOrderId   ;
+
+  @EndUserText.label: 'Item Number'
+  @UI.identification: [ { position: 30 } ]
+  @UI.lineItem: [ { position: 30 } ]
+  @UI.selectionField: [ { position: 30 } ]
+  ItemNumber        ;
+
+  @EndUserText.label: 'Product Id'
+  @UI.identification: [ { position: 40 } ]
+  @UI.lineItem: [ { position: 40 } ]
+  @UI.selectionField: [ { position: 40 } ]
+  ProductId         ;
+
+  @EndUserText.label: 'Product Name'
+  @UI.identification: [ { position: 50 } ]
+  @UI.lineItem: [ { position: 50 } ]
+  ProductName       ;
+
+  @EndUserText.label: 'Quantity'
+  @UI.identification: [ { position: 60 } ]
+  @UI.lineItem: [ { position: 60 } ]
+  Quantity          ;
+
+  @EndUserText.label: 'Unit Price'
+  @UI.identification: [ { position: 70 } ]
+  @UI.lineItem: [ { position: 70 } ]
+  UnitPrice         ;
+
+  @EndUserText.label: 'Total Price'
+  @UI.identification: [ { position: 80 } ]
+  @UI.lineItem: [ { position: 80 } ]
+  TotalPrice        ;
+
+  @EndUserText.label: 'Delivery Date'
+  @UI.identification: [ { position: 90 } ]
+  @UI.lineItem: [ { position: 90 } ]
+  DeliveryDate      ;
+
+  @EndUserText.label: 'Warehouse Location'
+  @UI.identification: [ { position: 100 } ]
+  @UI.lineItem: [ { position: 100 } ]
+  WarehouseLocation ;
+
+  @EndUserText.label: 'Created By'
+  @UI.identification: [ { position: 110 } ]
+  @UI.lineItem: [ { position: 110 } ]
+  CreatedBy         ;
+
+  @EndUserText.label: 'Created On'
+  @UI.identification: [ { position: 120 } ]
+  @UI.lineItem: [ { position: 120 } ]
+  CreateOn          ;
+
+  @EndUserText.label: 'Changed By'
+  @UI.identification: [ { position: 130 } ]
+  @UI.lineItem: [ { position: 130 } ]
+  ChangedBy         ;
+
+  @EndUserText.label: 'Changed On'
+  @UI.identification: [ { position: 140 } ]
+  @UI.lineItem: [ { position: 140 } ]
+  ChangedOn         ;
+}

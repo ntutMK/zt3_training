@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definiton forPurchase Order'
+define service ZOB_UI_PO {
+  expose ZOB_C_PO;
+  expose ZOB_C_PO_ITEM;
+}

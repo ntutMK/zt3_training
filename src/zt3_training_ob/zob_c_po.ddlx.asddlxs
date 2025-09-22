@@ -1,0 +1,101 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { typeNamePlural: 'Purchase Orders - List Report',
+                  typeName: 'Purchase Order',
+                  title.value: 'PurchaseOrderId' }
+
+annotate entity ZOB_C_PO
+    with
+
+{
+  @EndUserText.label: 'Purchase Order'
+  @UI.facet: [ { purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Purchase Order Items',
+                 position: 10,
+                 targetElement: '_Item' } ]
+  @UI.identification: [ { position: 10 } ]
+  @UI.lineItem: [ { position: 10 },
+                  { type: #FOR_ACTION, dataAction: 'ChangeStatus', label: 'Change Status' } ]
+  @UI.selectionField: [ { position: 10 } ]
+  PurchaseOrderId;
+
+  @EndUserText.label: 'Order Date'
+  @UI.identification: [ { position: 20 } ]
+  @UI.lineItem: [ { position: 20 } ]
+  @UI.selectionField: [ { position: 20 } ]
+  OrderDate       ;
+
+  @EndUserText.label: 'Supplier Id'
+  @UI.identification: [ { position: 30 } ]
+  @UI.lineItem: [ { position: 30 } ]
+  @UI.selectionField: [ { position: 30 } ]
+  SupplierId       ;
+
+  @EndUserText.label: 'Supplier Name'
+  @UI.identification: [ { position: 40 } ]
+  @UI.lineItem: [ { position: 40 } ]
+  SupplierName     ;
+
+  @Consumption.valueHelpDefinition: [ { entity: { name: 'ZOB_I_BUYER', element: 'buyerId' } } ]
+  @EndUserText.label: 'Buyer Id'
+  @UI.identification: [ { position: 50 } ]
+  @UI.lineItem: [ { position: 50 } ]
+  @UI.selectionField: [ { position: 40 } ]
+  BuyerId          ;
+
+  @EndUserText.label: 'Buyer Name'
+  @UI.identification: [ { position: 60 } ]
+  @UI.lineItem: [ { position: 60 } ]
+  BuyerName        ;
+
+  @EndUserText.label: 'Tatal Amount'
+  @UI.identification: [ { position: 70 } ]
+  @UI.lineItem: [ { position: 70 } ]
+  TotalAmount      ;
+
+  @EndUserText.label: 'Delivery Date'
+  @UI.identification: [ { position: 80 } ]
+  @UI.lineItem: [ { position: 80 } ]
+  DeliveryDate     ;
+
+  @EndUserText.label: 'Status'
+  @UI.identification: [ { position: 90 } ]
+  @UI.lineItem: [ { position: 90 } ]
+  Status          ;
+
+  @EndUserText.label: 'Payment Terms'
+  @UI.identification: [ { position: 100 } ]
+  @UI.lineItem: [ { position: 100 } ]
+  PaymentTerms    ;
+
+  @Consumption.valueHelpDefinition: [ { entity: { name: 'ZOB_I_SHIPPING_METHOD', element: 'shippingMethod' } } ]
+  @EndUserText.label: 'Shipping Method'
+  @UI.identification: [ { position: 110 } ]
+  @UI.lineItem: [ { position: 110 } ]
+  ShippingMethod   ;
+
+  @EndUserText.label: 'Control Timestamp'
+  @UI.identification: [ { position: 120 } ]
+  ControlTimestamp ;
+
+  @EndUserText.label: 'Created By'
+  @UI.identification: [ { position: 130 } ]
+  CreatedBy        ;
+
+  @EndUserText.label: 'Created On'
+  @UI.identification: [ { position: 140 } ]
+  CreateOn         ;
+
+  @EndUserText.label: 'Changed By'
+  @UI.identification: [ { position: 150 } ]
+  ChangedBy        ;
+
+  @EndUserText.label: 'Changed On'
+  @UI.identification: [ { position: 160 } ]
+  ChangedOn        ;
+
+  @EndUserText.label: 'Last Changed'
+  @UI.identification: [ { position: 170 } ]
+  LastChanged      ;
+}

@@ -1,0 +1,26 @@
+managed implementation in class zbp_jon_r_purc_order_tp unique;
+strict ( 2 );
+
+define behavior for ZJON_R_PURC_ORDER_TP //alias <alias_name>
+persistent table zjon_purc_order
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  association _items { create; }
+}
+
+define behavior for ZJON_R_PO_ITEM_TP //alias <alias_name>
+persistent table zjon_po_item
+lock dependent by _header
+authorization dependent by _header
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) PurchaseOrderId;
+  association _header;
+}

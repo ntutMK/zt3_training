@@ -1,0 +1,78 @@
+managed implementation in class zbp_ob_r_po unique;
+strict ( 2 );
+
+define behavior for ZOB_R_PO alias _Header
+persistent table zob_purc_order
+lock master
+authorization master ( instance )
+etag master LastChanged
+late numbering
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) PurchaseOrderId;
+  field ( readonly ) Status, BuyerName, SupplierName, TotalAmount;
+
+  association _Item { create; }
+
+  action ( precheck ) ChangeStatus parameter ZOB_D_NEW_STATUSS;
+
+
+  mapping for zob_purc_order{
+      PurchaseOrderId  = purchase_order_id;
+      OrderDate        = order_date;
+      SupplierId       = supplier_id;
+      SupplierName     = supplier_name;
+      BuyerId          = buyer_id;
+      BuyerName        = buyer_name;
+      TotalAmount      = total_amount;
+      HeaderCurrency   = header_currency;
+      DeliveryDate     = delivery_date;
+      Status           = status;
+      PaymentTerms     = payment_terms;
+      ShippingMethod   = shipping_method;
+      ControlTimestamp = control_timestamp;
+      CreatedBy        = created_by;
+      CreateOn         = create_on;
+      ChangedBy        = changed_by;
+      ChangedOn        = changed_on;
+      LastChanged      = last_changed;
+  }
+}
+
+define behavior for ZOB_R_Po_Item alias _Item
+persistent table zob_po_item
+lock dependent by _Head
+authorization dependent by _Head
+etag dependent by _Head
+late numbering
+{
+  update;
+  delete;
+
+  field ( readonly ) PurchaseOrderId, ItemId;
+
+  association _Head;
+
+
+
+  mapping for zob_po_item{
+      ItemId            = item_id;
+      PurchaseOrderId   = purchase_order_id;
+      ItemNumber        = item_number;
+      ProductId         = product_id;
+      ProductName       = product_name;
+      Quantity          = quantity;
+      UnitPrice         = unit_price;
+      TotalPrice        = total_price;
+      DeliveryDate      = delivery_date;
+      WarehouseLocation = warehouse_location;
+      ItemCurrency      = item_currency;
+      CreatedBy         = created_by;
+      CreateOn          = create_on;
+      ChangedBy         = changed_by;
+      ChangedOn         = changed_on;
+  }
+}

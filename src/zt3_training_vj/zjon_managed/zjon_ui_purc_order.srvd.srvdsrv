@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definition Purchase Order'
+define service ZJON_UI_PURC_ORDER {
+  expose ZJON_C_PURC_ORDER;
+  expose ZJON_C_PO_ITEM;
+}

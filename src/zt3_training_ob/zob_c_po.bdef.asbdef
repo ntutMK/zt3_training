@@ -1,0 +1,21 @@
+projection;
+strict ( 2 );
+
+define behavior for ZOB_C_PO alias _Header
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _Item { create; }
+
+  use action ChangeStatus;
+}
+
+define behavior for ZOB_C_PO_ITEM alias _Item
+{
+  use update;
+  use delete;
+
+  use association _Head;
+}
