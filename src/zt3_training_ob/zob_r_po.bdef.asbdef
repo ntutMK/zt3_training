@@ -18,6 +18,10 @@ late numbering
   association _Item { create; }
 
   action ( precheck ) ChangeStatus parameter ZOB_D_NEW_STATUSS;
+  validation checkDates on save { create; field OrderDate, DeliveryDate; }
+  determination calcTotalAmount on save { create; update; }
+
+
 
 
   mapping for zob_purc_order{
@@ -55,6 +59,8 @@ late numbering
   field ( readonly ) PurchaseOrderId, ItemId;
 
   association _Head;
+  determination calculateTotalPrice on modify { field Quantity, UnitPrice; }
+  determination writeItemNumber on save { create; }
 
 
 
