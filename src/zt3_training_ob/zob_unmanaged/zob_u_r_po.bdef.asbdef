@@ -1,0 +1,95 @@
+unmanaged implementation in class zbp_ob_u_r_po unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZOB_U_R_PO alias _Head
+draft table zob_upo_draft query zob_upo_draft_query
+lock master
+total etag lastChanged
+authorization master ( global, instance )
+etag master lastChanged
+{
+  create;
+  update;
+  delete;
+  association _Item { create; with draft; }
+
+  field ( readonly : update ) PurchaseOrderId, HeaderCurrency;
+  field ( mandatory ) SupplierId, DeliveryDate, BuyerId;
+  field ( readonly ) Status, BuyerName, SupplierName, TotalAmount;
+
+  action ( precheck ) ChangeStatus parameter ZOB_D_NEW_STATUSS;
+  validation checkDates on save { create; field OrderDate, DeliveryDate; }
+  determination calcTotalAmount on save { create; update; }
+
+    draft action Discard with additional implementation;
+    draft action Activate with additional implementation optimized;
+    draft action Resume with additional implementation;
+    draft action Edit with additional implementation;
+    draft determine action Prepare
+    {
+      determination ( always ) calcTotalAmount;
+      validation ( always ) checkDates;
+      determination _Item~findWarehouseLocation;
+      determination _Item~writeItemNumber;
+    }
+
+    mapping for zob_purc_order{
+      PurchaseOrderId  = purchase_order_id;
+      OrderDate        = order_date;
+      SupplierId       = supplier_id;
+      SupplierName     = supplier_name;
+      BuyerId          = buyer_id;
+      BuyerName        = buyer_name;
+      TotalAmount      = total_amount;
+      HeaderCurrency   = header_currency;
+      DeliveryDate     = delivery_date;
+      Status           = status;
+      PaymentTerms     = payment_terms;
+      ShippingMethod   = shipping_method;
+      ControlTimestamp = control_timestamp;
+      CreatedBy        = created_by;
+      CreateOn         = create_on;
+      ChangedBy        = changed_by;
+      ChangedOn        = changed_on;
+      LastChanged      = last_changed;
+  }
+}
+
+define behavior for ZOB_U_R_PO_ITEM alias _Item
+draft table zob_upoitm_draft query zob_upoitm_draft_query
+lock dependent by _Head
+authorization dependent by _Head
+etag dependent by _Head
+{
+  update;
+  delete;
+  field ( readonly ) PurchaseOrderId;
+  association _Head { with draft; }
+
+  field ( readonly ) TotalPrice, WarehouseLocation, ItemNumber;
+  field ( readonly : update )  ItemId, ProductId, ItemCurrency, UnitPrice;
+  field ( mandatory : create ) ProductId, Quantity, UnitPrice;
+
+  determination calculateTotalPrice on modify { field Quantity, UnitPrice; }
+  determination findWarehouseLocation on save { create; field ProductId; }
+  determination writeItemNumber on save { create; }
+
+    mapping for zob_po_item{
+      ItemId            = item_id;
+      PurchaseOrderId   = purchase_order_id;
+      ItemNumber        = item_number;
+      ProductId         = product_id;
+      ProductName       = product_name;
+      Quantity          = quantity;
+      UnitPrice         = unit_price;
+      TotalPrice        = total_price;
+      DeliveryDate      = delivery_date;
+      WarehouseLocation = warehouse_location;
+      ItemCurrency      = item_currency;
+      CreatedBy         = created_by;
+      CreateOn          = create_on;
+      ChangedBy         = changed_by;
+      ChangedOn         = changed_on;
+  }
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definiton For PO Unmanaged'
+define service ZOB_UI_PO_U {
+  expose ZOB_U_R_PO;
+  expose ZOB_U_R_PO_ITEM;
+}
